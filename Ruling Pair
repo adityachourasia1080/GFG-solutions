@@ -1,0 +1,27 @@
+class Solution{
+    
+    public:
+    int digitSum(int num){
+        int k = 10; int sum = 0;
+        while(num>0){
+            sum=sum+(num%k);
+            num=num/10;
+        }
+        return sum;
+    }
+    int RulingPair(vector<int> arr, int n) 
+    { 
+        int hash[102] = {0};
+        
+        int ans=-1;
+        for(auto num: arr){
+            int sum=digitSum(num);
+            if(hash[sum]!=0){
+                ans=max(ans, hash[sum] + num);
+            }
+            hash[sum]=max(hash[sum], num);
+        }
+        
+        return ans;
+    }     
+};
