@@ -1,0 +1,57 @@
+class Solution{
+  public:
+  
+  Node* findmid(Node * head)
+  {
+      Node * first= head,*second= head;
+      
+      while( first->next!=NULL)
+      {
+          first=first->next;
+          if (first->next)
+          {
+            first= first->next;
+          second=second->next;
+          }
+          
+      }
+      return second;
+  }
+  Node * reversed(Node * temp)
+  {
+      Node * prev=NULL,*curr=temp,*next;
+      while(curr)
+      {
+          next= curr->next;
+          curr->next= prev;
+          prev= curr;
+          curr=next;
+      }
+      return prev;
+  }
+  
+  
+    //Function to check whether the list is palindrome.
+    bool isPalindrome(Node *head)
+    {
+        //Your code here
+        if (head==NULL || head->next==NULL)  return true;
+        
+        Node * first= head,*mid,*temp;
+        
+        mid= findmid(head);
+        temp= reversed(mid->next);
+        mid->next=NULL;
+        while(head!=NULL && temp!=NULL)
+        {
+            if (head->data!=temp->data)   return false;
+            else
+            {
+                head=head->next;
+                temp=temp->next;
+            }
+        }
+        return true;
+       
+    }
+};
