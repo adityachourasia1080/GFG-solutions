@@ -1,0 +1,17 @@
+class Solution {
+  public:
+	int MinimumWalk(vector<vector<int>>&graph, int u, int v, int k){
+	    // Code here
+	    // dp[i][j]=no of ways we can reach i from u in exactly j edges
+	    // therfore final ans would be in dp[v][k];
+	    int n = graph.size(), mod = 1e9 + 7;
+    vector<vector<int64_t>> dp(n + 1, vector<int64_t>(k + 1, 0));
+    dp[u][0] = 1; // base case.
+    for (int j = 1; j <= k; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int p=0; p<n; p++)if(graph[p][i])(dp[i][j] += dp[p][j - 1])%=mod;
+        }
+    }
+    return dp[v][k];
+	   }
+};
