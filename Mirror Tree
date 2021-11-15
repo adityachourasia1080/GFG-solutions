@@ -1,0 +1,18 @@
+class Solution {
+  public:
+    // Function to convert a binary tree into its mirror tree.
+    Node* hat( Node* root)
+    {
+        if (root==NULL)  return NULL;
+        
+        
+        Node* temp= root->left;
+        root->left= hat( root->right);
+        root->right=hat(temp);
+        return root;
+    }
+    void mirror(Node* node) {
+        
+       node= hat(node);
+    }
+};
