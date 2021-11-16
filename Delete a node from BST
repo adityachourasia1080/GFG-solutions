@@ -1,0 +1,51 @@
+Node * pred(Node * root)
+{
+    while( root->right)
+    {
+        root=root->right;
+    }
+    return root;
+}
+Node * succ(Node * root)
+{
+    while( root->left)
+    {
+        root=root->left;
+    }
+    return root;
+}
+Node * hat(Node * root,int value)
+{
+    if (root==NULL)   return root;
+  
+    if (root->data==value)
+    {
+         if (root->left==NULL && root->right==NULL)  return NULL;
+   
+        else if (root->left)
+        {
+            Node * temp =pred(root->left);
+            value= temp->data;
+            root->data= temp->data;
+            root->left=hat(root->left,value);
+        }
+        else
+        {
+             Node * temp =succ(root->right);
+            value= temp->data;
+            root->data= temp->data;
+            root->right=hat(root->right,value);
+        }
+    }
+    else if (root->data<value)  root->right= hat( root->right,value);
+   
+     else root->left=hat( root->left,value);
+     
+     return root;
+   
+    
+}
+Node *deleteNode(Node *root, int X) {
+    // your code goes here
+   return  hat( root,X);
+}
