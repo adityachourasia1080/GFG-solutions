@@ -1,0 +1,72 @@
+struct aditya
+{
+    string str;
+    vector<string> temp;
+    unordered_set<string> st1;
+    
+};
+class Solution {
+public:
+    vector<vector<string>> findSequences(string bw, string ew, vector<string>& wl) {
+        // code here
+        vector<vector<string>> ans;
+        unordered_set<string> st,st5;
+        int n= wl.size();
+        bool foundit=false;
+        for (int i=0;i<n;i++) 
+        {st.insert( wl[i]);
+        if (ew==wl[i])  foundit=true;
+        }
+        if (foundit==false)   return ans;
+        queue<aditya> q;
+        vector<string> has;
+        has.push_back(bw);
+        aditya a;
+        a.str= bw;
+        a.temp=has;
+        a.st1=st5;
+        q.push(a);
+        bool found=false;
+        while( !q.empty())
+        {
+            int count= q.size();
+            aditya b;
+            for (int i=0;i<count;i++)
+            {
+                b= q.front(); q.pop();
+                vector<string> temp = b.temp;
+                string transform= b.str;
+                unordered_set<string> st4= b.st1;
+                for (int j=0;j<transform.length();j++)
+                {
+                    for (char c='a';c<='z';c++)
+                    {
+                        char ch= transform[j];
+                        transform[j]=c;
+                        if (st.find(transform)!=st.end() && st4.find(transform)==st4.end())
+                        {
+                            temp.push_back(transform);
+                            aditya d;
+                            st4.insert(transform);
+                            d.str=transform;
+                            d.st1=st4;
+                            d.temp=temp;
+                            q.push(d);
+                            
+                            if (transform==ew)
+                            {
+                                found=true;
+                                ans.push_back(temp);
+                            }
+                           
+                            temp.pop_back();
+                        }
+                        transform[j]=ch;
+                    }
+                }
+            }
+            if (found==true)  break;
+        }
+        return ans;
+    }
+};
