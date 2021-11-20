@@ -1,0 +1,49 @@
+class Solution{
+
+    public:
+    int below(Node* root,int k,int travel)
+    {
+        if (root==NULL || travel>k)  return 0;
+        
+        return below( root->left,k,travel+1)+ below( root->right,k,travel+1)+ root->data;
+    }
+    int hat(Node* root, int target, int k,int &dist)
+    {
+        if (root==NULL)   return 0;
+        
+        if (root->data==target)
+        {
+            dist=1;
+            return  below( root,k,0);
+            
+        }
+        
+       int suma= hat( root->left,target,k,dist);
+       if (suma!=0)
+       {
+           dist++;
+           if (dist-1==k)  return suma+root->data;
+           else if (dist>k)  return suma;
+           
+           return suma+ below(root->right,k,dist)+root->data;
+       }
+       int sumb= hat( root->right,target,k,dist);
+       if (sumb!=0)
+       {
+            dist++;
+           if (dist-1==k)  return sumb+root->data;
+           else if (dist>k)  return sumb;
+           return sumb+ below( root->left,k,dist)+root->data;
+       }
+       
+       return 0;
+    }
+    int sum_at_distK(Node* root, int target, int k)
+    {
+        // Your code goes here
+        int dist= INT32_MAX;
+        return hat( root,target,k,dist);
+    }
+
+
+};
