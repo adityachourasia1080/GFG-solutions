@@ -1,0 +1,52 @@
+void hat(struct TrieNode *root, string key,int l)
+{
+    if (l==key.length()) 
+    {
+        root->isLeaf=true;
+        return ;
+    }
+    if (root==NULL)
+    {
+       root= getNode();
+       root->children[key[l]-'a']=getNode();
+       root= root->children[key[l]-'a'];
+       hat(root,key,l+1);
+    }
+    else if (root->children[key[l]-'a']!=NULL)
+    {
+        root= root->children[key[l]-'a'];
+        hat( root,key,l+1);
+    }
+    
+    root->children[key[l]-'a']= getNode();
+    root= root->children[key[l]-'a'];
+    hat( root,key,l+1);
+}
+void insert(struct TrieNode *root, string key)
+{
+    // code here
+    hat(root,key,0);
+}
+
+//Function to use TRIE data structure and search the given string.
+bool search(struct TrieNode *root, string key) 
+{
+    // code herehile()
+    int l=0;
+    while(root!=NULL && l<key.length())
+    {
+        if (root->children[key[l]-'a']!=NULL)
+        {
+            root= root->children[key[l]-'a'];
+            l++;
+        }
+        else
+        {
+            root=NULL;
+            break;
+        }
+    }
+    if (root==NULL)  return false;
+    if (l==key.length()  && root->isLeaf)  return true;
+    return false;
+}
