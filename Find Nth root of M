@@ -1,0 +1,15 @@
+class Solution{
+public:
+	int NthRoot(int n, int m)
+	{
+	    // Code here.
+	    if (m==1)  return 1;
+	    if (n==1) return m;
+	    for (int i=2;i<=pow(i,n);i++)
+	    {
+	        if (pow(i,n)==m)  return i;
+	        else if (pow(i,n)>m)  break;
+	    }
+	    return -1;
+	}  
+  };
