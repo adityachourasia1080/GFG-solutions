@@ -1,0 +1,75 @@
+class Solution
+{
+ public:
+    //Function to find minimum time required to rot all oranges. 
+    bool isvalid(int x,int y,vector<vector<int>>& grid)
+    {
+        if (x<0 || x>=grid.size() || y<0 || y>=grid[0].size() || grid[x][y]==-1)   return false;
+        if (grid[x][y]!=1)   return false;
+        
+        return true;
+    }
+    int orangesRotting(vector<vector<int>>& grid) {
+        // Code here
+        int n= grid.size();
+        int m= grid[0].size();
+        queue<pair<int,int>>q;
+        for (int i=0;i<n;i++)
+        {
+            for (int j=0;j<m;j++)
+            {
+                if (grid[i][j]==2)
+                {
+                    q.push({i,j});
+                    grid[i][j]=-1;
+                }
+            }
+        }
+        pair<int,int> p;
+        int  res=0;
+        if (q.empty())  return 0;
+        while(!q.empty())
+        {
+            int count= q.size();
+            res++;
+            for (int i=0;i<count;i++)
+            {
+                p= q.front();  q.pop();
+                int x= p.first;
+                int y= p.second;
+                
+                if (isvalid(x+1,y,grid))
+                {
+                    q.push({x+1,y});
+                
+                grid[x+1][y]=-1;
+                }
+                if (isvalid(x,y+1,grid)) 
+                {q.push({x,y+1});
+               
+                 grid[x][y+1]=-1;
+                }
+                if (isvalid(x,y-1,grid)) 
+                {q.push({x,y-1});
+                
+                 grid[x][y-1]=-1;
+                }
+                if (isvalid(x-1,y,grid))
+                {q.push({x-1,y});
+                
+                 grid[x-1][y]=-1;
+                }
+                
+            }
+        }
+        
+        for (int i=0;i<n;i++)
+        {
+            for (int j=0;j<m;j++)
+            {
+                if (grid[i][j]==1)  return -1;
+            }
+        }
+        return res-1;
+    }
+};
