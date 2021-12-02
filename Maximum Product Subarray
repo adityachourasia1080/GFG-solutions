@@ -1,0 +1,23 @@
+long long maxProduct(vector<int> arr, int n) {
+	    // code here
+	    	long long maxy= arr[0],miny=arr[0],res=arr[0];
+	    	for (int i=1;i<n;i++)
+	    	{
+	    	    long long a= arr[i];
+	    	    if (arr[i]<0)
+	    	    {
+	    	        long long temp= maxy;
+	    	        maxy=max(miny*a,a);
+	    	        miny= min(temp*a,a);
+	    	        res=max(res,maxy);
+	    	    }
+	    	    else
+	    	    {
+	    	        maxy=max(maxy*a,a);
+	    	        miny=min(miny*a,a);
+	    	        res=max(res,maxy);
+	    	    }
+	   
+	    	}
+	    	return res;
+	}
