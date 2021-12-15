@@ -1,0 +1,42 @@
+#define ll long long int
+
+vector<long long> printFirstNegativeInteger(long long int A[],long long int N, long long int k) {
+
+ long long i=0,j=0;
+vector<long long> ans;
+deque<pair<long long,long long >> q;
+while(j<N)
+{
+        if (A[j]<0)
+        {
+            q.push_back({A[j],j});
+        }
+        
+    if (j-i+1==k)
+    {
+        if (q.empty())
+        {
+            ans.push_back(0);
+        }
+        else
+        {
+            pair<long long,long long> p= q.front();
+            if (p.second<=j && j-p.second+1 <=k)
+            {
+                ans.push_back(p.first);
+            }
+            else
+            {
+                ans.push_back(0);
+            }
+        }
+        
+        if (A[i]<0)  q.pop_front();
+        i++;
+    }
+    j++;
+}
+return ans;
+                                                 
+                                                
+ }
