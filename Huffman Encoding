@@ -1,0 +1,63 @@
+Class Solution
+{
+	public:
+	struct hnode
+	{
+	    int freq;char ch;hnode * left;hnode *right;
+	    
+	    hnode(int f,char c,hnode* l=NULL,hnode *r=NULL)
+	    {
+	        freq=f;
+	        left=l;
+	        right=r;
+	        ch=c;
+	    }
+	    
+	};
+	class campare
+	{
+	    public:
+	    bool operator ()(hnode* a,hnode* b)
+	    {
+	        return a->freq>b->freq;
+	    }
+	    
+	};
+	void preorder(hnode * root,vector<string>& ans,string res)
+	{
+	    if (root->left==NULL && root->right==NULL)
+	    {
+	        ans.push_back(res);
+	        return;
+	    }
+	    
+	    res.push_back('0');
+	    preorder(root->left,ans,res);
+	    res.pop_back();
+	    
+	    res.push_back('1');
+	    preorder(root->right,ans,res);
+	    res.pop_back();
+	}
+		vector<string> huffmanCodes(string S,vector<int> f,int N)
+		{
+		   vector<string> ans;
+		   priority_queue<hnode*,vector<hnode*>,campare> h;
+		   for (int i=0;i<N;i++)
+		   {
+		       h.push(new hnode(f[i],S[i]));
+		   }
+		   while(h.size()>1)
+		   {
+		       hnode * left= h.top();  h.pop();
+		       hnode *right= h.top();  h.pop();
+		       
+		       hnode * temp= new hnode(left->freq+right->freq,'$',left,right);
+		       h.push(temp);
+		   }
+		   string an;
+		   preorder(h.top(),ans,an);
+		   return ans;
+		    
+		}
+    };
