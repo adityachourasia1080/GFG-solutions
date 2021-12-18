@@ -1,0 +1,32 @@
+pair<int,int> hat(Node * root,int & ans)
+{
+    if (root->left==NULL && root->right==NULL)  return {root->data,root->data};
+    
+    int miny=root->data,maxy=root->data;
+    
+    if (root->left)
+    {
+        pair<int,int> p= hat( root->left,ans);
+        miny= min(miny,p.first);
+        maxy=max(maxy,p.second);
+        ans= max(ans,(root->data-p.first));
+        ans= max(ans,(root->data-p.second));
+    }
+    if (root->right)
+    {
+        pair<int,int> p= hat( root->right,ans);
+        miny= min(miny,p.first);
+        maxy=max(maxy,p.second);
+        ans= max(ans,(root->data-p.first));
+        ans= max(ans,(root->data-p.second));
+        
+    }
+    return {miny,maxy};
+}
+int maxDiff(Node* root)
+{
+    // Your code here 
+    int ans=INT32_MIN;
+    pair<int,int>p=hat(root,ans);
+    return ans;
+}
