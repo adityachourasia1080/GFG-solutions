@@ -1,0 +1,65 @@
+string converte(int count)
+      {
+           unordered_map<int,string> mp;
+        mp[10]="a";
+        mp[11]="b";
+        mp[12]="c";
+        mp[13]="d";
+        mp[14]="e";
+        mp[15]="f";
+        
+        if (count<=9)   return to_string (count);
+        
+        vector<int> v;
+        while(count)
+        {
+            int rem= count %16;
+            count= count/16;
+            v.push_back(rem);
+        }
+        string ans;
+        for (int i=0;i<v.size();i++)
+        {
+            if (v[i]<=9) ans+= to_string(v[i]);
+            else  ans+= mp[v[i]];
+        }
+        
+        return ans;
+      }
+    string encryptString(string S) {
+        // code her
+        int i=0;
+        string res;
+        while(i<S.length())
+        {
+            if (i+1<S.length() && S[i]==S[i+1])
+            {
+                string str;
+                str.push_back(S[i]);
+                int count=1;
+                while(i+1<S.length() && S[i]==S[i+1])
+                {
+                    i++;
+                    count++;
+                }
+                str+=converte(count);
+                res+=str;
+            }
+            else
+            {
+                string str;
+                str.push_back(S[i]);
+                str.push_back('1');
+                res+=str;
+            }
+            i++;
+        }
+        i=0;int j=res.length()-1;
+        while(i<j)
+        {
+            swap(res[i],res[j]);
+            i++;
+            j--;
+        }
+        return res;
+    }
