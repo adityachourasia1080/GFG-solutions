@@ -1,0 +1,31 @@
+int findMaxLen(string s) {
+        // code here
+        int maxy=0;
+        stack<pair<char,int>> st;
+        unordered_map<int,int> mp;
+        int i=0;
+        while(i<s.length())
+        {
+          if (s[i]=='(')   st.push({'(',i});
+          else
+          {
+              if (!st.empty())
+              {
+                  if (mp.find(st.top().second-1)!=mp.end())
+                  {
+                      maxy=max(maxy,mp[st.top().second-1]+(i-st.top().second+1));
+                      mp[i]=mp[st.top().second-1]+(i-st.top().second+1);
+                  }
+                  else
+                  {
+                      maxy=max(maxy,i-st.top().second+1);
+                      mp[i]=i-st.top().second+1;
+                  }
+                  st.pop();
+              }
+          }
+          i++;
+          
+        }
+        return maxy;
+    }
