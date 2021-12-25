@@ -1,0 +1,45 @@
+void hat(struct node * low,struct node * high)
+{
+    if (low==NULL || high==NULL)  return ;
+    if (high==low)  return ;
+    struct node * pivot= high;
+    struct node * first=NULL,* second= low;
+    
+    while( second!=high)
+    {
+        if (second->data <= pivot->data)
+        {
+            if (first==NULL)  first= low;
+            else first= first->next;
+            
+            swap( first->data,second->data);
+        }
+        second= second->next;
+    }
+    
+    struct node * prev=NULL;
+    if (first==NULL)  
+    {
+        first= low;
+      swap(pivot->data,first->data);
+    }
+    else  if (first->next)
+    {
+        swap(first->next->data,pivot->data);
+        prev= first;
+        first= first->next;
+    }
+    
+    hat(low,prev);
+    if (first!=high) hat(first->next,high);
+}
+void quickSort(struct node **headRef) {
+    struct node * low= *headRef,* temp= *headRef,*high=NULL;
+    if (low==NULL)  return;
+    while(temp->next)
+    {
+        temp= temp->next;
+    }
+    high= temp;
+    hat( low,high);
+}
