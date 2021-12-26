@@ -1,0 +1,42 @@
+int maxArea(vector<bool> m[], int r, int c) {
+	    // code here
+	    vector<vector<int>> mat;
+	    for (int i=0;i<r;i++)
+	    {
+	        vector<int> temp;
+	        for (int j=0;j<c;j++)
+	        {
+	           if (m[i][j])temp.push_back(1); 
+	           else temp.push_back(0);
+	        }
+	        mat.push_back(temp);
+	    }
+	    for (int i=0;i<r;i++)
+	    {
+	        for (int j=0;j<c;j++)
+	        {
+	            if (i!=0 && mat[i][j]!=0)
+	            {
+	                mat[i][j]=mat[i][j]+mat[i-1][j];
+	            }
+	        }
+	    }
+	    
+	    for (int i=0;i<r;i++)
+	    {
+	        sort(mat[i].begin(),mat[i].end());
+	    }
+	    int maxarea=0;
+	    for (int i=0;i<r;i++)
+	    {
+	        int width=1;
+	        int height=INT32_MAX;
+	        for (int j=c-1;j>=0;j--)
+	        {
+	            height=min(height,mat[i][j]);
+	            maxarea= max(maxarea,width*height);
+	            width++;
+	        }
+	    }
+	    return maxarea;
+	}
