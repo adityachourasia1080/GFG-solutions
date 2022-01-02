@@ -1,0 +1,36 @@
+int kThSmallestFactor(int N , int k) {
+        // code here
+        vector<int> first,last;
+        bool square=false;
+        for (int i=1;i*i<=N;i++)
+        {
+            if ((N %i)==0)
+            {
+                int no1=i;
+                int no2= N/i;
+                if (no1!=no2)
+                {
+                    first.push_back(no1);
+                    last.push_back(no2);
+                }
+                else 
+                {first.push_back(no1);
+                 square=true;
+                }
+                
+                if (first.size()==k)   return first[k-1];
+            }
+        }
+        
+        reverse(last.begin(),last.end());
+        int n= first.size();
+        if (square)
+        {
+            if (k>((2*n)-1))   return -1;
+            k=k-n;
+            return last[k-1];
+        }
+        if (k> (2*n))   return -1;
+        k=k-n;
+        return last[k-1];
+    }
