@@ -1,0 +1,23 @@
+void rotate(vector<vector<int> >& matrix)
+{
+    // Your code goes here
+    int n= matrix.size();
+    int m= matrix[0].size();
+    for (int i=0;i<n;i++)
+    {
+        for (int j=i+1;j<m;j++)
+        {
+            swap(matrix[i][j],matrix[j][i]);
+        }
+    }
+    for (int j=0;j<m;j++)
+    {
+        int i=0,k=n-1;
+        while(i<k)
+        {
+            swap(matrix[i][j],matrix[k][j]);
+            i++;
+            k--;
+        }
+    }
+}
