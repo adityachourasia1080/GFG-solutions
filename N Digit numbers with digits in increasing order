@@ -1,0 +1,43 @@
+class Solution
+{
+public:
+    vector<int> increasingNumbers(int N)
+    {
+        // Write Your Code here
+        queue<long long > q;
+        vector<int> ans;
+        if (N==1)
+        {
+            for (int i=0;i<=9;i++) ans.push_back(i);
+            return ans;
+        }
+        for (int i=1;i<=9;i++) q.push(i);
+        bool valid=false;
+        while(!q.empty())
+        {
+            int n= q.size();
+            long long num= q.front();
+            string str= to_string(num);
+            if (str.length()==N)  valid=true;
+            
+            for (int i=0;i<n;i++)
+            {
+                 long long  no= q.front(); q.pop();
+                 if (valid) ans.push_back(no);
+                 int lastno= no %10;
+                  lastno++;
+                  
+                  if (valid==false)
+                  {
+                 for (;lastno<=9;lastno++)
+                 {
+                    long long  temp= no*10+lastno;
+                    q.push(temp);
+                  }
+                  }
+            }
+            if (valid)  break;
+        }
+        return ans;
+    }
+};
