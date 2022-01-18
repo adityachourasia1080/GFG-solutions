@@ -1,0 +1,23 @@
+class Solution{
+  public:
+    //Function to return the maximum sum of non-adjacent nodes.
+    pair<int,int> hat(Node * root)
+    {
+        if (root==NULL)   return {0,0};
+        
+        pair<int,int> sum1,sum2,sum;
+        sum1=hat(root->left);
+        sum2=hat(root->right);
+        
+        sum.first= sum1.second+ sum2.second+root->data;
+        
+        sum.second=max(sum1.first,sum1.second)+max(sum2.first,sum2.second);
+        return sum;
+    }
+    int getMaxSum(Node *root) 
+    {
+        // Add your code here
+        pair<int,int> p= hat(root);
+        return max(p.first,p.second);
+    }
+};
