@@ -1,0 +1,28 @@
+Node * hat(Node * root,Node * &prev,Node * & newhead)
+{
+    if (root==NULL)  return NULL;
+    if (root->left==NULL && root->right==NULL)
+    {
+        if (prev!=NULL)
+        {
+          prev->right= root;
+        root->left= prev;
+        }
+        else
+        {
+            newhead= root;
+        }
+        
+        prev= root;
+        return NULL;
+    }
+    root->left= hat( root->left,prev,newhead);
+    root->right=hat(root->right,prev,newhead);
+    return root;
+}
+Node * convertToDLL(Node *root){
+    // add code here.
+    Node * prev=NULL,*newhead=NULL;
+    root=hat( root,prev,newhead);
+    return newhead;
+}
