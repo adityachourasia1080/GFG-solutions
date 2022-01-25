@@ -1,0 +1,41 @@
+class Solution {
+  public:
+  bool isvalid(int mid,int arr[],int n,int d)
+  {
+      int ship=1;
+      int sum=0;
+      for (int i=0;i<n;i++)
+      {
+          if (arr[i]>mid)   return false;
+          sum+=arr[i];
+          if(sum>mid)
+          {
+              ship++;
+              sum=arr[i];
+          }
+          if (ship>d)   return false;
+      }
+      return true;
+  }
+    int leastWeightCapacity(int arr[], int N, int D) {
+        // code here
+        int start=INT32_MIN,last=0,ans;
+        for (int i=0;i<N;i++)
+        {
+            last+=arr[i];
+            start=max(start,arr[i]);
+        }
+        while(start<=last)
+        {
+            int mid= start+(last-start)/2;
+            
+            if (isvalid(mid,arr,N,D))
+            {
+                last=mid-1;
+                ans=mid;
+            }
+            else  start=mid+1;
+        }
+        return ans;
+    }
+};
