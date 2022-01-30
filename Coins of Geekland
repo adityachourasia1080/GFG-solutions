@@ -1,0 +1,50 @@
+public:
+    int Maximum_Sum(vector<vector<int>> &mat,int N,int k){
+        // Your code goes here
+        vector<vector<int>> v(N,vector<int> (N,0));
+        vector<vector<int>> h(N,vector<int> (N,0));
+        
+        for (int i=0;i<N;i++)
+        {
+            int sum=0,sum2=0;
+            for (int j=0;j<N;j++)
+            {
+               sum+=mat[i][j];
+               h[i][j]=sum;
+               sum2+=mat[j][i];
+               v[j][i]=sum2;
+            }
+        }
+        int maxy=INT32_MIN;
+        for (int i=0;i<N;i++)
+        {
+            for (int j=0;j<N;j++)
+            {
+                int sum1= h[i][j];
+                int sum2= v[i][j];
+                h[i][j]=sum1+sum2-(mat[i][j]);
+                if (i-1 >=0  && j-1 >=0)
+                {
+                    h[i][j]=h[i][j]+h[i-1][j-1];
+                }
+                //cout<< h[i][j]<<' ';
+              if (i+1-k >=0 && j+1-k >=0)
+              {
+                 int temp= h[i][j];
+                 bool dou=true;
+                 if (i-k>=0)  temp= temp-h[i-k][j];
+                 else dou= false;
+                 if (j-k >=0)   temp= temp-h[i][j-k];
+                 else  dou=false;
+                 if (dou)
+                 {
+                     temp= temp+h[i-k][j-k];
+                 }
+                 maxy=max(maxy,temp);
+              }
+            }
+            //cout<<endl;
+           
+        }
+        return maxy;
+    }  
