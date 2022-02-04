@@ -1,0 +1,77 @@
+class Solution
+{
+    public:
+    
+    struct trie
+    {
+        public: 
+        trie * Node;
+        int count;
+        trie* v[26];
+        
+        trie()
+        {
+            Node= NULL;
+            count=0;
+            for (int i=0;i<26;i++)  v[i]=NULL;
+        
+        }
+        
+    };
+    trie * head;
+    void insert(trie * head,string s)
+    {
+        int len=s.length(),i=0;
+        while(i<len)
+        {
+            int index= s[i]-'a';
+            if (head->v[index]==NULL)
+            {
+                trie * diff= new trie();
+                diff->count=1;
+                head->v[index]=diff;
+            }
+            else
+            {
+                head->v[index]->count++;
+            }
+            head=head->v[index];
+            i++;
+        }
+    
+    }
+    
+    string find(trie * head,string s)
+    {
+        int i=0,len= s.length();
+        string temp;
+        while(i<len)
+        {
+            int index=s[i]-'a';
+             temp.push_back(s[i]);
+            if (head->v[index]->count  ==1)    break;
+            else   head= head->v[index];
+            i++;
+        }
+        return temp;
+    }
+    vector<string> findPrefixes(string arr[], int n)
+    {
+        //code here
+        vector<string> ans;
+        head= new trie();
+        for (int i=0;i<n;i++)
+        {
+            insert(head,arr[i]);
+        }
+        
+        for (int i=0;i<n;i++)
+        {
+            string temp=find(head,arr[i]);
+            ans.push_back(temp);
+        }
+        return ans;
+        
+    }
+    
+};
