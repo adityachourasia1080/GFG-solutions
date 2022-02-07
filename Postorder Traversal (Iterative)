@@ -1,0 +1,44 @@
+class Solution{
+    public:
+    vector<int> postOrder(Node* node) {
+        // code here
+        stack<pair<Node*,int>>st;
+        vector<int> ans;
+        Node * t=node;
+        while( !st.empty() || t!=NULL)
+        {
+            if (t)
+            {
+                st.push({t,0});
+                t= t->left;
+            }
+            else
+            {
+                pair<Node*,int> p= st.top(); st.pop();
+                if (p.second==1)
+                {
+                    ans.push_back(p.first->data);
+                    if (!st.empty())
+                    {
+                       pair<Node* ,int> p1= st.top();
+                       st.pop();
+                       if (p1.second==1) t=NULL;
+                       else
+                       {
+                           t= p1.first->right;
+                          
+                       }
+                        st.push({p1.first,1});
+                    }
+                    else  t=NULL;
+                }
+                else
+                {
+                    t= p.first->right;
+                    st.push({p.first,1});
+                }
+            }
+        }
+        return ans;
+    }
+};
