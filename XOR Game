@@ -1,0 +1,33 @@
+class Solution{
+public:
+// Hint: Just Try to Find XOR of first 10  Consecutive Numbers you will get some pattern.
+// Basically you will find whenever k+1 ==pow of2  ans= k/2 always
+// M1
+/*bool ispow2(int n)
+{ 
+   if(n==0)
+   return false;
+   return (ceil(log2(n)) == floor(log2(n)));
+}
+    int xorCal(int k){
+        int ans=-1;
+        if(k==1){return 2;}
+        if(ispow2(k+1))
+        {
+            ans=k/2;
+        }
+        return ans;
+    }*/
+
+ // M2 - Simplified of M1z
+    int xorCal(int k){
+        // code here
+        if(k == 1)
+            return 2;
+            
+        if((k & (k+1)) == 0)
+            return k/2;
+            
+        return -1;
+    }
+};
