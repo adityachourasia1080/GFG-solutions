@@ -1,0 +1,34 @@
+class Solution
+{
+  public:
+    string newIPAdd (string s)
+    {
+        //code here.
+        string ans;
+        int j=0,n=s.length(),i=0;
+        
+        while(j<n)
+        {
+            string temp;
+            while(j<n && s[j]!='.') j++;
+            
+            temp= s.substr(i,j-i);
+            
+            int k=0;
+           while(temp[k]=='0' && k<temp.length()) k++;
+           
+           if (k==temp.length())  temp="0";
+           else
+           {
+               temp=temp.substr(k,temp.length()-k);
+           }
+           
+           ans+=temp;
+            
+            j++;
+            i=j;
+            if (j<n)   ans.push_back('.');
+        }
+        return ans;
+    }
+};
