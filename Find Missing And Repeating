@@ -1,0 +1,46 @@
+int *findTwoElement(int *arr, int n) {
+        // code here
+        
+        int xorori=0,xorarr=0;
+        for (int i=0;i<n;i++)
+        {
+            xorori= xorori ^(i+1);
+            xorarr= xorarr ^(arr[i]);
+        }
+        
+        int xorans= xorori ^ xorarr;  // x^ y
+        
+        int buc1=0,buc2=0;
+        
+        int setbit= xorans & (~(xorans-1));
+        
+        for (int i=0;i<n;i++)
+        {
+            if ((arr[i]  & setbit)==0) buc2= buc2 ^ (arr[i]);
+            else buc1= buc1 ^ (arr[i]);
+            
+            if ( ((i+1) & setbit) ==0)  buc2 = buc2 ^ (i+1);
+            else buc1= buc1 ^(i+1);
+        }
+        int count1=0,count2=0;
+          int * ans;
+        for (int i=0;i<n;i++)
+        {
+          if (arr[i]==buc1) 
+          {
+              ans[0]=buc1;
+              ans[1]=buc2;
+              break;
+          }
+          if (arr[i]==buc2)
+          {
+              ans[0]=buc2;
+              ans[1]=buc1;
+              break;
+          }
+            
+        }
+       //cout<<buc1 << buc2<<endl;
+        return ans;
+        
+    }
