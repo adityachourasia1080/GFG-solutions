@@ -1,0 +1,50 @@
+//M1 O(N) & O(N) E.S
+class Solution{
+    
+public:
+class node
+{
+    public:
+         int val;
+         node* left,*right;
+         
+         node(int val)
+         {
+             left=NULL,right=NULL;
+             this->val=val;
+         }
+};
+
+  int height(node* head)
+  {
+    if (head==NULL)  return 0;
+    int left= height(head->left);
+    int right= height(head->right);
+    
+    return max(left,right)+1;
+  }
+  
+    int findHeight(int n, int arr[]){
+        // code here
+        unordered_map<int,node*> mp;
+        node* head=NULL;
+        for (int i=0;i<n;i++)
+        {
+            node * temp = new node(i);
+            if (arr[i]==-1) head=temp;
+            else
+            {
+                if (mp.find(arr[i])!=mp.end())
+                {
+                    node * par= mp[arr[i]];
+                    if (par->left==NULL)  par->left= temp;
+                    else par->right=temp;
+                }
+                
+            }
+             mp[i]= temp;
+             
+        }
+        return height(head);
+    }
+};
