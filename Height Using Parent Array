@@ -48,3 +48,25 @@ class node
         return height(head);
     }
 };
+
+//M2-O(N*N)  && O(1)
+class Solution{
+public:
+    int findHeight(int N, int arr[]){
+        // code
+        int ans=0;
+        for (int i=0;i<N;i++)
+        {
+            int j=i;
+            int count=1;
+            while(arr[j]!=-1)
+            {
+                j= arr[j];
+                count++;
+            }
+            ans=max(ans,count);
+        }
+        return ans;
+    }
+};
+
