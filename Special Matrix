@@ -1,0 +1,42 @@
+class Solution {
+public:
+
+vector<vector<int>> dir={{1,0},{0,1}};
+int mod= 1e9+7;
+bool isvalid(int x,int y,int n,int m,vector<vector<int>> mat)
+{
+    if (x<0 || x>=n || y<0 || y>=m || mat[x][y]==-1 )  return false;
+    return true;
+}
+int dfs(int x,int y,int n,int m,vector<vector<int>> mat,vector<vector<int>> & dp)
+{
+    if (x==n-1  && y==m-1)   return 1;
+    
+    if (dp[x][y]!=-1)  return dp[x][y];
+    int ways=0;
+    for (int i=0;i<2;i++)
+    {
+        if (isvalid(x+dir[i][0],y+dir[i][1],n,m,mat))
+        {
+           ways+= dfs(x+dir[i][0],y+dir[i][1],n,m,mat,dp) % mod;
+        }
+    }
+    return dp[x][y]=ways % mod;
+    
+}
+	int FindWays(int n, int m, vector<vector<int>>b){
+	    // Code here
+	    vector<vector<int>> mat(n,vector<int>(m,1));
+	    
+	    for (int i=0;i<b.size();i++) 
+	    {mat[b[i][0]-1][b[i][1]-1]=-1;
+	    if (b[i][0]-1 ==0  && b[i][1]-1 ==0)  return 0;
+	    if (b[i][0]==n  && b[i][1]==m)   return 0;
+	    }
+	    
+	    
+	    vector<vector<int>> dp(n,vector<int>(m,-1));
+	    return dfs(0,0,n,m,mat,dp)% mod;
+	    
+	}
+};
