@@ -1,0 +1,30 @@
+class Solution
+{
+    public:
+    void knap(vector<int> A,int i,vector<int> temp,vector<vector<int>> &ans)
+    {
+        if (i== A.size())
+        {
+            ans.push_back(temp);
+            return ;
+        }
+        
+        temp.push_back(A[i]);
+        knap(A,i+1,temp,ans);
+        temp.pop_back();
+        
+        
+        knap(A,i+1,temp,ans);
+        
+    }
+    vector<vector<int> > subsets(vector<int>& A)
+    {
+        //code here
+        vector<vector<int>> ans;
+        vector<int> temp;
+        knap(A,0,temp,ans);
+        sort(ans.begin(),ans.end());
+        
+       return ans;
+    }
+};
