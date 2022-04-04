@@ -1,0 +1,21 @@
+public:
+    string previousNumber(string s){
+        // code here 
+        if (s.length()==1) return "-1";
+        int i= s.length()-2,j=s.length()-1;
+        while(i>=0 && s[i]<=s[j])
+        {
+            i--;
+            j--;
+        }
+        if (i==-1)  return "-1";
+         int prevmax=INT32_MAX;
+         for (int k=i+1;k<s.length();k++)
+         {
+             if (s[k]<s[i] && (prevmax==INT32_MAX || s[prevmax]< s[k])) prevmax=k;
+         }
+         swap(s[i],s[prevmax]);
+         if (s[0]=='0')  return "-1";
+         return s;
+    }
+};
