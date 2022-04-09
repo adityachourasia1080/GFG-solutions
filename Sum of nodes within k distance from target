@@ -1,0 +1,73 @@
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+};
+
+*/
+
+class Solution{
+public:
+int sum;
+ void godown(Node * root,int dis)
+{
+    if (root==NULL)  return;
+    if (dis==0)
+    {
+        sum+=root->data;
+        return;
+    }
+    sum+=root->data;
+    godown(root->left,dis-1);
+    godown(root->right,dis-1);
+}
+  pair<bool,int> hat(Node* root, int target, int k)
+  {
+      if (root==NULL)  return {false,0};
+      if (root->data== target)
+      {
+          sum+=target;
+           godown(root->left,k-1);
+           godown(root->right,k-1);
+          return {true,1};
+      }
+      
+      pair<bool,int> left= hat(root->left,target,k);
+      if (left.first==true)
+      {
+          int dis=left.second;
+          dis=k-dis;
+          if (dis==0)
+          {
+              sum+=root->data;
+              return {false,0};
+          }
+          sum+=root->data;
+          godown(root->right,dis-1);
+          return {true,left.second+1};
+      }
+      pair<bool,int> right= hat(root->right,target,k);
+      if (right.first==true)
+      {
+          int dis=right.second;
+          dis=k-dis;
+          if (dis==0)
+          {
+              sum+=root->data;
+              return {false,0};
+          }
+          sum+=root->data;
+          godown(root->left,dis-1);
+          return {true,right.second+1};
+      }
+      
+      return {false,0};
+  }
+    int sum_at_distK(Node* root, int target, int k)
+    {
+        sum=0;
+        pair<bool,int> p= hat(root,target,k);
+        return sum;
+    }
+};
