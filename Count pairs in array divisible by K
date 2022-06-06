@@ -1,0 +1,23 @@
+class Solution
+{
+    public:
+    long long countKdivPairs(int A[], int n, int K)
+    {
+        //code here
+        vector<int> v(K,0);
+        long long count=0;
+        for (int i=0;i<n;i++)
+        {
+           int rem= A[i]%K;
+           v[rem]++;
+        }
+        count+=(v[0]*(v[0]-1))/2;
+        for (int i=1;i<=K/2;i++)
+        {
+            int diff=K-i;
+            if (diff !=i)  count+=v[i]*v[diff];
+            else  count+=(v[i]*(v[i]-1))/2;
+        }
+        return count;
+    }
+};
