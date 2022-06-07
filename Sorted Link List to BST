@@ -1,0 +1,23 @@
+class Solution{
+  public:
+    TNode* sortedListToBST(LNode *head) {
+        //code here
+        if (head==NULL)  return NULL;
+        LNode* slow=head,*fast=head,*prev=NULL;
+        while(fast && fast->next)
+        {
+            prev=slow;
+            slow=slow->next;
+            fast=fast->next->next;
+            
+        }
+        TNode * temp=new TNode(slow->data);
+        if (slow==fast)   return temp;
+        LNode* next=slow->next;
+        prev->next=NULL;
+        temp->left=sortedListToBST(head);
+        temp->right=sortedListToBST(next);
+        return temp;
+        
+    }
+};
