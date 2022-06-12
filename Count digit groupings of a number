@@ -1,0 +1,24 @@
+	int solve(string str,int index,int prev,vector<vector<int>>& dp)
+	{
+	    if (index==str.length())   return 1;
+	    int digits=0,ans=0;
+	    for (int i=index;i<str.length();i++)
+	    {
+	        digits+= (str[i]-'0');
+	        if (digits >=prev)
+	        {
+	            if (dp[index][i-index+1]!=-1)   ans+=dp[index][i-index+1];
+	            else  {
+	                dp[index][i-index+1]=solve(str,i+1,digits,dp);
+	                ans+=dp[index][i-index+1];
+	            }
+	        }
+	    }
+	    return ans;
+	    
+	}
+	int TotalCount(string str){
+	    // Code here
+	    vector<vector<int>> dp(101,vector<int>(101,-1));
+	    return solve(str,0,0,dp);
+	}
