@@ -1,0 +1,27 @@
+// GOOD QUESTION 
+
+double solve(double low,double high, double m[],int n)
+    {
+        while(low< high)
+        {
+            double mid= (low+high)/2;
+            double totalforce=0;
+            for (int i=0;i<n;i++)  totalforce+= 1/(mid-m[i]);
+            if (abs(totalforce)<0.00000001)   return mid;
+            else if (totalforce >0)
+            {
+                low=mid;
+            }
+            else high=mid;
+            
+        }
+        return low;
+    }
+        void nullPoints(int n, double magnets[], double getAnswer[])
+    {
+        // Your code goes here   
+        for(int i=0;i<n-1;i++)
+        {
+            getAnswer[i]=solve(magnets[i],magnets[i+1],magnets,n);
+        }
+    }
