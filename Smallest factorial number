@@ -1,0 +1,24 @@
+public:
+        int findNum(int n)
+        {
+        //complete the function here
+        int low=1,high=1e5,res;
+        while(low<=high)
+        {
+            int mid= low+(high-low)/2;
+            int j=mid,mul=5,ans=0;
+            while(true)
+            {
+                ans+=j/mul;
+                if ((j/mul)==0)  break;
+                mul=mul*5;
+            }
+            if (ans>=n)
+            {
+                res=mid;
+                high=mid-1;
+            }
+            else low=mid+1;
+        }
+        return res;
+        }
