@@ -1,0 +1,18 @@
+vector<int> reaching_height(int n, int a[]) {
+    // Complete the function
+    vector<int> ans;
+    sort(a,a+n);
+    int i=0,j=n-1;
+    int lev=0;
+    while(i<=j)
+    {
+        ans.push_back(a[j]);
+        if(i!=j) ans.push_back(a[i]);
+        lev+=a[j];
+        if(i!=j) lev-=a[i];
+        i++;
+        j--;
+    }
+    if (lev!=0)  return ans;
+    return {-1};
+}
